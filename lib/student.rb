@@ -1,4 +1,5 @@
 class Student
+
   attr_accessor :id, :name, :grade
 
   def self.new_from_db(row)
@@ -59,4 +60,5 @@ class Student
     sql = "SELECT id, name, grade FROM students WHERE grade = 10 LIMIT ?"
     DB[:conn].execute(sql, x).map {|row| self.new_from_db(row)}
   end
+  
 end
