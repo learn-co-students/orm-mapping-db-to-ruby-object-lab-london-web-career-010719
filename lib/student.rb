@@ -58,28 +58,28 @@ class Student
   end
 
   def self.all_students_in_grade_9
-    sql = "SELECT id, name, grade FROM students WHERE grade = 9"
-    DB[:conn].execute(sql).map {|row| self.new_from_db(row)}
+    sql = "SELECT id, name, grade FROM students WHERE grade = ?"
+    DB[:conn].execute(sql, 9).map {|row| self.new_from_db(row)}
   end
 
   def self.students_below_12th_grade
-    sql = "SELECT id, name, grade FROM students WHERE grade < 12"
-    DB[:conn].execute(sql).map {|row| self.new_from_db(row)}
+    sql = "SELECT id, name, grade FROM students WHERE grade <= ?"
+    DB[:conn].execute(sql, 11).map {|row| self.new_from_db(row)}
   end
 
   def self.first_student_in_grade_10
-    sql = "SELECT id, name, grade FROM students WHERE grade = 10"
-    row = DB[:conn].execute(sql).first
+    sql = "SELECT id, name, grade FROM students WHERE grade = ?"
+    row = DB[:conn].execute(sql, 10).first
     self.new_from_db(row)
   end
 
   def self.all_students_in_grade_X(grade)
-    sql = "SELECT id, name, grade FROM students WHERE grade = #{grade}"
-    DB[:conn].execute(sql).map {|row| self.new_from_db(row)}
+    sql = "SELECT id, name, grade FROM students WHERE grade = ?"
+    DB[:conn].execute(sql, grade).map {|row| self.new_from_db(row)}
   end
 
   def self.first_X_students_in_grade_10(x)
-    sql = "SELECT id, name, grade FROM students WHERE grade = 10 LIMIT #{x}"
-    DB[:conn].execute(sql).map {|row| self.new_from_db(row)}
+    sql = "SELECT id, name, grade FROM students WHERE grade = 10 LIMIT ?"
+    DB[:conn].execute(sql, x).map {|row| self.new_from_db(row)}
   end
 end
