@@ -53,19 +53,13 @@ class Student
   end
 
   def self.all_students_in_grade_9
-    sql = <<-SQL
-      SELECT * FROM students
-      WHERE grade = "9"
-    SQL
-    DB[:conn].execute(sql).map do |row|
-      new_from_db(row)
-    end
+    all_students_in_grade_X(9)
   end
 
   def self.students_below_12th_grade
     sql = <<-SQL
       SELECT * FROM students
-      WHERE CAST(grade AS INT) < 12
+      WHERE grade < 12
     SQL
     DB[:conn].execute(sql).map do |row|
       new_from_db(row)
